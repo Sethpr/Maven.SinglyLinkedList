@@ -3,7 +3,7 @@ package com.zipcodewilmington.singlylinkedlist;
 /**
  * Created by leon on 1/10/18.
  */
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable> {
 
     Node<T> head;
 
@@ -29,6 +29,11 @@ public class SinglyLinkedList<T> {
     }
 
     public void remove(T toRemove) {
+        if(head.getData().equals(toRemove)){
+            head = head.next;
+            return;
+        }
+
         Node<T> before = head;
         Node<T> after = head.next;
 
@@ -43,7 +48,6 @@ public class SinglyLinkedList<T> {
                 after = after.next;
             }
         }
-
     }
 
     public int size() {
@@ -67,7 +71,6 @@ public class SinglyLinkedList<T> {
             }
             current = current.next;
         }
-
         return false;
     }
 
@@ -98,7 +101,24 @@ public class SinglyLinkedList<T> {
         return newList;
     }
 
-    public void sort() {
+    public void sort() { //I am intentionally writing a crappy sort.... or im just stupid, you decide
+        SinglyLinkedList<T> newList = new SinglyLinkedList<>();
         //T.T
+        Node<T> min = head;
+        Node<T> current = head;
+        int startSize = this.size();
+        for(int i = 0; i<startSize; i++){
+            current = head;
+            min = current;
+            for(int j = 0; j<this.size(); j++){
+                if(current.getData().compareTo(min.getData())<0){
+                    min = current;
+                }
+                current = current.next;
+            }
+            newList.add(min.getData());
+            this.remove(min.getData());
+        }
+        head = newList.head;
     }
 }

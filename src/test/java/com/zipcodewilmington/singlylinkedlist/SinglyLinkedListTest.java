@@ -96,6 +96,7 @@ public class SinglyLinkedListTest {
         String expected = "beforeTest";
         list.add("test");
         list.add(expected);
+        list.add("frank");
 
         list.sort();
         String actual = list.get(0);
